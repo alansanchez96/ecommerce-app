@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -20,8 +20,8 @@ class Brand extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function product(): BelongsTo
+    public function products(): HasMany
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(Product::class);
     }
 }
