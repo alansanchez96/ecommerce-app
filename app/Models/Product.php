@@ -18,6 +18,9 @@ class Product extends Model
 {
     use HasFactory;
 
+    const INACTIVE = 1;
+    const ACTIVE = 2;
+
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function brand(): BelongsTo
