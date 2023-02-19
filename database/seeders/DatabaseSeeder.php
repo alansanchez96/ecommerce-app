@@ -3,7 +3,15 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Database\Seeders\SizeSeeder;
+use Database\Seeders\ColorSeeder;
+use Database\Seeders\ProductSeeder;
+use Database\Seeders\CategorySeeder;
+use Database\Seeders\SubcategorySeeder;
+use Illuminate\Support\Facades\Storage;
+use Database\Seeders\ColorProductSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +20,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        Storage::deleteDirectory('categories');
+        Storage::deleteDirectory('subcategories');
+        Storage::deleteDirectory('products');
+        
+        Storage::makeDirectory('subcategories');
+        Storage::makeDirectory('categories');
+        Storage::makeDirectory('products');
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Admin',
+            'lastname' => 'Public',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('admin')
+        ]);
+
+        $this->call(CategorySeeder::class);
+        $this->call(SubcategorySeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(ColorSeeder::class);
+        $this->call(ColorProductSeeder::class);
+        $this->call(SizeSeeder::class);
     }
 }
